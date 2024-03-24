@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+</head>
+<body>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+        }
+        body {
+          width: 100%;
+          height: 100vh;
+          background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3374&q=80');
+          background-position: center;
+          background-size: cover;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    
+        .container {
+          padding: 1rem;
+          max-width: 300px;
+          text-align: center;
+          position: relative;
+          border-radius: 10px;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+    
+        .time {
+          padding: 1rem 0;
+          font-size: 2rem;
+        }
+    
+        h1,
+        p {
+          color: #f8f8f8;
+        }
+    
+        button {
+          padding: 0.4rem 1rem;
+          margin: 0 0.2rem;
+          border-radius: 10px;
+          border: 1px solid #f8f8f8;
+        }
+    
+        button:hover {
+          background-color: rgba(0, 0, 0, 0.4);
+          color: #f8f8f8;
+        }
+      </style>
+    <div class="container">
+        <h1>Stopwatch</h1>
+    <p class="time" id>
+        <h1 id="time">00:00:00</h1>
+        <!-- <span id="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span> -->
+    </p>
+    <button class="Stop" onclick=" watchStop()">Stop</button>
+
+    <button class="start" onclick="watchstart()">Start</button>
+    
+    <button class="reset" onclick="watchReset()">Reset</button>
+    </div>
+    <script>
+        let [seconds, minutes, hours]=[0,0,0];
+        let time=document.getElementById("time");
+        let timer=null;
+        function stopwatch()
+        {
+            seconds++;
+            if(seconds==60)
+            {
+                seconds=0;
+                minutes++;
+                if(minutes=60)
+                {
+                    minutes=0;
+                    hours++;
+                }
+            }
+
+            let h = hours <10 ? "0" +hours : hours;
+            let m = minutes <10 ? "0" +minutes : minutes;
+            let s = seconds <10 ? "0" +seconds : seconds;
+
+            time.innerHTML=h +":"+m+":"+s;
+        }
+    function watchstart(){
+        if(timer!==null){
+            clearInterval(timer);
+        }
+        timer=setInterval(stopwatch,1000);
+    }  
+    
+   function watchStop(){
+    clearInterval(timer);
+   }
+
+   function watchReset(){
+    clearInterval(timer);
+    [seconds, minutes, hours]=[0,0,0];
+    time.innerHTML="00:00:00";
+
+   }
+    </script>
+</body>
+</html>
